@@ -37,7 +37,7 @@ document
       isValid = false;
     }
 
-    const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$/;
+    const passwordRegex = /^[A-Z](?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$/;
     if (password === "") {
       document.getElementById("errorPassword").innerText =
         "Vui lòng nhập mật khẩu.";
@@ -81,6 +81,6 @@ document
 
       alert("Đăng ký thành công! Thông tin đã được lưu.");
       document.getElementById("registerForm").reset();
-      window.location.href = "login.html";
+      window.location.href = "dashboard.html";
     }
   });

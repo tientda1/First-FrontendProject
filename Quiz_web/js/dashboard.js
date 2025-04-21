@@ -1,15 +1,15 @@
 let quizzes = JSON.parse(localStorage.getItem("tests")) || [];
-const quizzesPerPage = 8;
+const quizzesPerPage = 6;
 let currentPage = 1;
 
-quizzes = quizzes.map(quiz => ({
+quizzes = quizzes.map((quiz) => ({
   ...quiz,
   image: quiz.image || "../assets/images/image 1.png",
   playAmount: quiz.playAmount || 0,
-  questions: quiz.questions || []
+  questions: quiz.questions || [],
 }));
 
-let filteredQuizzes = [...quizzes];
+let filteredQuizzes = [...quizzes]
 
 function displayQuizzes(page) {
   const start = (page - 1) * quizzesPerPage;
@@ -41,15 +41,15 @@ function displayQuizzes(page) {
     playButton.addEventListener("click", () => {
       quiz.playAmount = (quiz.playAmount || 0) + 1;
 
-      quizzes[quizzes.findIndex(q => q.id === quiz.id)] = quiz;
-      filteredQuizzes[filteredQuizzes.findIndex(q => q.id === quiz.id)] = quiz;
+      quizzes[quizzes.findIndex((q) => q.id === quiz.id)] = quiz;
+      filteredQuizzes[filteredQuizzes.findIndex((q) => q.id === quiz.id)] =
+        quiz;
 
       localStorage.setItem("tests", JSON.stringify(quizzes));
 
       displayQuizzes(currentPage);
 
       console.log(`Bắt đầu chơi quiz: ${quiz.name} (ID: ${quiz.id})`);
-
     });
 
     quizContainer.appendChild(quizCard);
@@ -64,7 +64,9 @@ function updatePagination() {
   pagination.innerHTML = "";
 
   const prevButton = document.createElement("button");
-  prevButton.className = `pagination-btn pagination-arrow pagination-left ${currentPage === 1 ? 'disabled' : ''}`;
+  prevButton.className = `pagination-btn pagination-arrow pagination-left ${
+    currentPage === 1 ? "disabled" : ""
+  }`;
   prevButton.innerText = "<";
   prevButton.disabled = currentPage === 1;
   prevButton.addEventListener("click", () => {
@@ -77,7 +79,9 @@ function updatePagination() {
 
   for (let i = 1; i <= totalPages; i++) {
     const pageButton = document.createElement("button");
-    pageButton.className = `pagination-btn pagination-number ${currentPage === i ? 'active' : ''}`;
+    pageButton.className = `pagination-btn pagination-number ${
+      currentPage === i ? "active" : ""
+    }`;
     pageButton.innerText = i;
     pageButton.addEventListener("click", () => {
       currentPage = i;
@@ -87,7 +91,9 @@ function updatePagination() {
   }
 
   const nextButton = document.createElement("button");
-  nextButton.className = `pagination-btn pagination-arrow pagination-right ${currentPage === totalPages ? 'disabled' : ''}`;
+  nextButton.className = `pagination-btn pagination-arrow pagination-right ${
+    currentPage === totalPages ? "disabled" : ""
+  }`;
   nextButton.innerText = ">";
   nextButton.disabled = currentPage === totalPages;
   nextButton.addEventListener("click", () => {

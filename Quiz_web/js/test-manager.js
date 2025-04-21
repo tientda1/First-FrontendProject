@@ -8,15 +8,16 @@ let tests = JSON.parse(localStorage.getItem("tests")) || [
     time: "10min",
     questions: [
       {
-        content: "Which is the past of the computer system that one can physically touch?",
+        content:
+          "Which is the past of the computer system that one can physically touch?",
         answers: [
           { answer: "data" },
           { answer: "operating systems" },
           { answer: "hardware", isCorrected: true },
-          { answer: "software" }
-        ]
-      }
-    ]
+          { answer: "software" },
+        ],
+      },
+    ],
   },
   {
     id: 2,
@@ -25,7 +26,7 @@ let tests = JSON.parse(localStorage.getItem("tests")) || [
     image: "",
     playAmount: 0,
     questions: [],
-    time: "15min"
+    time: "15min",
   },
   {
     id: 3,
@@ -34,8 +35,17 @@ let tests = JSON.parse(localStorage.getItem("tests")) || [
     image: "",
     playAmount: 0,
     questions: [],
-    time: "5min"
-  }
+    time: "5min",
+  },
+  {
+    id: 4,
+    name: "Physics Test",
+    category: "🧠 Vật lý",
+    image: "",
+    playAmount: 0,
+    questions: [],
+    time: "5min",
+  },
 ];
 
 const itemsPerPage = 5;
@@ -54,22 +64,25 @@ function renderTests() {
   const endIndex = startIndex + itemsPerPage;
   const paginatedTests = filteredTests.slice(startIndex, endIndex);
 
+
   paginatedTests.forEach((test, index) => {
     const globalIndex = tests.indexOf(test);
-    const questionCount = Array.isArray(test.questions) ? test.questions.length : 0;
-    tableBody.innerHTML += `
-      <tr style="border: 1px solid #e1e4e8;">
-        <td style="border: 1px solid #e1e4e8;text-align: center">${test.id}</td>
-        <td style="border: 1px solid #e1e4e8;">${test.name}</td>
-        <td style="border: 1px solid #e1e4e8;">${test.category}</td>
-        <td style="border: 1px solid #e1e4e8;">${questionCount}</td>
-        <td style="border: 1px solid #e1e4e8;">${test.time}</td>
-        <td style="text-align: center">
-          <button class="btn btn-edit btn-warning" onclick="openEditModal(${globalIndex})">Sửa</button>
-          <button class="btn btn-delete btn-danger" onclick="openDeleteModal(${globalIndex})">Xóa</button>
-        </td>
-      </tr>
-    `;
+    const questionCount = Array.isArray(test.questions)
+      ? test.questions.length
+      : 0;
+        tableBody.innerHTML += `
+        <tr style="border: 1px solid #e1e4e8;">
+          <td style="border: 1px solid #e1e4e8;text-align: center">${test.id}</td>
+          <td style="border: 1px solid #e1e4e8;">${test.name}</td>
+          <td style="border: 1px solid #e1e4e8;">${test.category}</td>
+          <td style="border: 1px solid #e1e4e8;">${questionCount}</td>
+          <td style="border: 1px solid #e1e4e8;">${test.time}</td>
+          <td style="text-align: center">
+            <button class="btn btn-edit btn-warning" onclick="openEditModal(${globalIndex})">Sửa</button>
+            <button class="btn btn-delete btn-danger" onclick="openDeleteModal(${globalIndex})">Xóa</button>
+          </td>
+        </tr>
+      `;    
   });
 
   renderPagination();
@@ -188,7 +201,9 @@ function confirmDelete() {
       currentPage = 1;
     }
     renderTests();
-    const modal = bootstrap.Modal.getInstance(document.getElementById("deleteModal"));
+    const modal = bootstrap.Modal.getInstance(
+      document.getElementById("deleteModal")
+    );
     modal.hide();
     deleteIndex = null;
   }

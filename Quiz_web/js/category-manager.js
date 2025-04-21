@@ -1,8 +1,9 @@
-let categories = JSON.parse(localStorage.getItem('categories')) || [
+let categories = JSON.parse(localStorage.getItem("categories")) || [
   { id: 1, name: "📚 Lịch sử" },
   { id: 2, name: "🧠 Khoa học" },
   { id: 3, name: "🎤 Giải trí" },
   { id: 4, name: "🏠 Đời sống" },
+  { id: 5, name: "🧠 Vật lý" },
 ];
 
 const itemsPerPage = 5;
@@ -36,24 +37,30 @@ function renderCategories() {
   });
 
   renderPagination();
-  localStorage.setItem('categories', JSON.stringify(categories));
+  localStorage.setItem("categories", JSON.stringify(categories));
 }
 
 function renderPagination() {
   const totalPages = Math.ceil(categories.length / itemsPerPage);
   let paginationHTML = `
     <div class="pagination" style="text-align: center; margin-top: 20px; display: flex; justify-content: center; align-items: center;">
-      <button class="pagination-btn pagination-arrow pagination-left" onclick="previousPage()" ${currentPage === 1 ? 'disabled' : ''}><</button>
+      <button class="pagination-btn pagination-arrow pagination-left" onclick="previousPage()" ${
+        currentPage === 1 ? "disabled" : ""
+      }><</button>
   `;
 
   for (let i = 1; i <= totalPages; i++) {
     paginationHTML += `
-      <button class="pagination-btn pagination-number ${currentPage === i ? 'active' : ''}" onclick="goToPage(${i})">${i}</button>
+      <button class="pagination-btn pagination-number ${
+        currentPage === i ? "active" : ""
+      }" onclick="goToPage(${i})">${i}</button>
     `;
   }
 
   paginationHTML += `
-      <button class="pagination-btn pagination-arrow pagination-right" onclick="nextPage()" ${currentPage === totalPages ? 'disabled' : ''}>></button>
+      <button class="pagination-btn pagination-arrow pagination-right" onclick="nextPage()" ${
+        currentPage === totalPages ? "disabled" : ""
+      }>></button>
     </div>
   `;
 
@@ -182,7 +189,9 @@ function saveCategory() {
   localStorage.setItem("tests", JSON.stringify(tests));
 
   renderCategories();
-  const modal = bootstrap.Modal.getInstance(document.getElementById("categoryModal"));
+  const modal = bootstrap.Modal.getInstance(
+    document.getElementById("categoryModal")
+  );
   modal.hide();
 }
 
@@ -211,7 +220,9 @@ function confirmDelete() {
     localStorage.setItem("tests", JSON.stringify(tests));
 
     renderCategories();
-    const modal = bootstrap.Modal.getInstance(document.getElementById("deleteModal"));
+    const modal = bootstrap.Modal.getInstance(
+      document.getElementById("deleteModal")
+    );
     modal.hide();
     deleteIndex = null;
   }
